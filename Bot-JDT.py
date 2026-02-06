@@ -45,8 +45,6 @@ async def generate_JDT(context: ContextTypes.DEFAULT_TYPE):
   #TODO 1 récuperation des données dans le google sheet du jdt
   response = requests.get(URL_SHEET)
 
-  if response.status_code == 200 :
-    response.
   #TODO 2 mise en forme d'un mail du journal de travail de la bonne semaine
   #TODO 3 Confirmation du mail par l'utilisateur
   #TODO 4 Envoit du mail aux formateurs / Profs (ETML)
