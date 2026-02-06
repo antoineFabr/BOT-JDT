@@ -5,10 +5,12 @@ from telegram import Update
 from telegram.ext import ApplicationBuilder, ContextTypes, CommandHandler
 import datetime
 import pytz
+import requests
 
 load_dotenv()
 
 TOKEN = os.get_env('TOKEN_BOT')
+URL_SHEET = os.get_env('GOOGLE_SHEET_LINK')
 
 logging.basicConfig(
   format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -35,12 +37,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
   )
 
 
-async def generate_JDT( context: ContextTypes.DEFAULT_TYPE):
+async def generate_JDT(context: ContextTypes.DEFAULT_TYPE):
   chat_id = context.job.chat_id
   message = "Generation du mail du journal de travail"
   await context.bot.send_message(chat_id=chat_id, text=message)
 
   #TODO 1 récuperation des données dans le google sheet du jdt
+  response = requests.get(URL_SHEET)
+
+  if response.status_code == 200 :
+    response.
   #TODO 2 mise en forme d'un mail du journal de travail de la bonne semaine
   #TODO 3 Confirmation du mail par l'utilisateur
   #TODO 4 Envoit du mail aux formateurs / Profs (ETML)
