@@ -32,15 +32,17 @@ def generate_day_content(day):
 
   taches = tache.split(",")
 
-  items = [f"- {t}" for t in taches if t]
-  md_taches = "\n".join(items)
+  items = [f"- {t} " for t in taches if t]
+  md_taches = "\n" + "\n".join(items)
 
 
-  problemes = day['c'][10].get('v', '')
-  if problemes:
-       md_problemes = f"Problèmes : {problemes}"
+  problemes_cell = day['c'][10]
+  problemes = problemes_cell.get('v', '-') if problemes_cell else '-'
+
+  if problemes and problemes != '-':
+       md_problemes = f"**Problèmes :** {problemes}"
   else:
-       md_problemes = ""
+       md_problemes = "**Problèmes :** -"
 
   #Markdown_problemes = [f"- {item}" for item in problemes]
 
@@ -52,7 +54,10 @@ def generate_day_content(day):
 | {debut} | {pause_deb} | {pause_fin} | {fin} | {h_sup} | {h_journée} |
 
 **Tâches effectuées :**
+
+
 {md_taches}
+
 
 {md_problemes}
 ---
@@ -81,7 +86,7 @@ async def generate_JDT():
         # On récupère le groupe capturé (le JSON pur)
         json_str = match.group(1)
 
-        # 4. Convertir en objet Python (dict)
+        # 4. Convertir en objet Python
         data = json.loads(json_str)
 
         # Affichage pour vérifier
@@ -94,7 +99,8 @@ async def generate_JDT():
 
   #récuperation de la bonne semaine dans ce qu'on récupère du jdt
   Last_week = []
-  today = datetime.today().strftime('%d/%m/%y')
+  #today = datetime.today().strftime('%d/%m/%y')
+  today = "06/02/26"
 
   rows = data['table']['rows']
   for i ,day in enumerate(rows):
@@ -118,15 +124,6 @@ Bonjour,
 
 Voici le récapitulatif de mes heures et activités pour cette semaine.
 """
-
-
-
-
-
-  #TODO 2 mise en forme d'un mail du journal de travail de la bonne semaine
-  #Lundi, Mardi, Mercredi, Jeudi, Vendredi = Last_week
-  #Partie horaire
-  MarkDown_Final = []
   print(Last_week[4]['c'][8].get('f',''))
   for i, day in enumerate(Last_week):
     FINAL_BODY += generate_day_content(day)
@@ -146,6 +143,7 @@ Cordialement,
 
 ps: ce mail est généré automatiquement.
 """
+  print(FINAL_BODY)
   return FINAL_BODY
 
 
