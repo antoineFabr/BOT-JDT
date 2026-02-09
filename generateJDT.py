@@ -11,6 +11,7 @@ import markdown
 
 
 
+
 load_dotenv()
 
 URL_SHEET = os.getenv('GOOGLE_SHEET_LINK')
@@ -37,7 +38,7 @@ def generate_day_content(day):
 
   problemes = day['c'][10].get('v', '')
   if problemes:
-       md_problemes = f"**Problèmes :** {problemes}"
+       md_problemes = f"Problèmes : {problemes}"
   else:
        md_problemes = ""
 
@@ -102,7 +103,7 @@ async def generate_JDT():
       print(f"Donc la case numero : ", i)
       start_index = max(0, i - 5)
 
-      end_index = i
+      end_index = i + 1
       Last_week = rows[start_index : end_index]
       break
     else:
@@ -126,28 +127,29 @@ Voici le récapitulatif de mes heures et activités pour cette semaine.
   #Lundi, Mardi, Mercredi, Jeudi, Vendredi = Last_week
   #Partie horaire
   MarkDown_Final = []
-
+  print(Last_week[4]['c'][8].get('f',''))
   for i, day in enumerate(Last_week):
     FINAL_BODY += generate_day_content(day)
 
-  FINAL_BODY += """
+  FINAL_BODY += f"""
+Temps effectué cette semaine : {Last_week[4]['c'][7].get('f','')}
+
+Heures supp effectuées cette semaine : {Last_week[4]['c'][8].get('f','')}
+
+Bilan de la semaine : Excelent accueil à l'epfl, l'équipe est super sympa, il y a un petit travail à faire pour les miliers d'acronymes super technique.
+Au final cette semaine est une superbe première experience.
+
 Je vous souhaite un excellent week-end.
 
 Cordialement,
+
 **Antoine Fabre**
+
+ps: ce mail est généré automatiquement.
 """
+  return FINAL_BODY
 
 
-
-  print(FINAL_BODY)
-
-
-
-  #TODO Faire la partie des heures pour le mail
-
-
-  #TODO 3 Confirmation du mail par l'utilisateur
-  #TODO 4 Envoit du mail aux formateurs / Profs (ETML)
 
 if __name__ == '__main__':
   asyncio.run(generate_JDT())
