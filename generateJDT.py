@@ -136,8 +136,7 @@ Temps effectué cette semaine : {Last_week[4]['c'][7].get('f','')}
 
 Heures supp effectuées cette semaine : {Last_week[4]['c'][8].get('f','')}
 
-Bilan de la semaine : Excelent accueil à l'epfl, l'équipe est super sympa, il y a un petit travail à faire pour les miliers d'acronymes super technique.
-Au final cette semaine est une superbe première experience.
+Bilan de la semaine : {Last_week[4]['c'][11].get('f','')}
 
 Je vous souhaite un excellent week-end.
 
