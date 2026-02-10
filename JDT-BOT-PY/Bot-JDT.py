@@ -26,22 +26,28 @@ logging.basicConfig(
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
   chat_id = update.effective_chat.id
-
+  user_id = update.effective_user.id
   await update.message.reply_text(f"Bot-JDT activé ! tous les vendredis tu recevra une visualisation du rendu de ton journal de travail de la semain")
 
 
-  #on enleve le job s'il existe deja (pour le créer ensuite)
-  current_jobs = context.job_queue.get_jobs_by_name(str(chat_id))
+  job_name = str(chat_id)
+  current_jobs = context.job_queue.get_jobs_by_name(job_name)
   for job in current_jobs:
-    job.schedule_removal()
+      job.schedule_removal()
 
-  #création du job
-  context.job_queue.run_once(
-    when=2,
-    callback=send_JDT,
-    chat_id=chat_id,
-    user_id=update.effective_user.id
-)
+    # 2. RÉGLAGE TEST : Mets ici l'heure actuelle + 2 minutes
+    # Exemple : s'il est 16h30, mets hour=16, minute=32
+  time_to_send = datetime.time(hour=16, minute=22, second=0, tzinfo=pytz.timezone('Europe/Paris'))
+
+  context.job_queue.run_daily(
+      callback=send_JDT,
+      time=time_to_send,
+      days=(0,), # Garde 0 pour tester aujourd'hui (lundi)
+      chat_id=chat_id,
+      user_id=user_id,
+      name=job_name # Très important pour le nettoyage au-dessus
+  )
+
 
 
 async def send_JDT(context: ContextTypes.DEFAULT_TYPE):

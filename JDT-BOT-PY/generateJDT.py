@@ -40,9 +40,9 @@ def generate_day_content(day):
   problemes = problemes_cell.get('v', '-') if problemes_cell else '-'
 
   if problemes and problemes != '-':
-       md_problemes = f"**Problèmes :** {problemes}"
+       md_problemes = problemes
   else:
-       md_problemes = "**Problèmes :** -"
+       md_problemes = "-"
 
   #Markdown_problemes = [f"- {item}" for item in problemes]
 
@@ -57,6 +57,8 @@ def generate_day_content(day):
 
 
 {md_taches}
+
+**Problèmes :**
 
 
 {md_problemes}

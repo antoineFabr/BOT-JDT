@@ -1,0 +1,21 @@
+{
+  "name": "jdt-bot-ts",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts":{
+    "bot:jdt": "bun i --no-fun && bun index.js"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "node-cron": "^4.2.1",
+    "nodemailer": "^8.0.1",
+    "showdown": "^2.1.0",
+    "telegraf": "^4.16.3"
+  }
+}
