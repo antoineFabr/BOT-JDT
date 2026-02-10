@@ -1,13 +1,11 @@
 export function filterJDT(jdtJSON) {
 
   const date = new Date();
-  const today = "06/02/26"
-
-  /*date.toLocaleDateString('fr-FR', {
+  const today = date.toLocaleDateString('fr-FR', {
     day: '2-digit',
     month: '2-digit',
     year: '2-digit'
-  });*/
+  });
 
   let Last_week = [];
 

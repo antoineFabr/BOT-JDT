@@ -55,7 +55,7 @@ async function job_bot(ChatId) {
 
 bot.start((ctx) => {
   // il faut lancer un cron tous les vendredis a 18h30
-  cron.schedule('5 14 * * 2', () => {
+  cron.schedule('30 18 * * 5', () => {
     job_bot(ctx.chat.id)
   })
   ctx.reply("Vous avez activé le Bot-JDT, cela veut dire que tous les vendredis à 18h30 une confirmation de mail vous sera envoyé pour confirmer l'envoi de votre journal de travail à vos formateurs")

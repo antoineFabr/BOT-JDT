@@ -1,0 +1,9 @@
+version: "3"
+services:
+  node:
+    image: "oven/bun:latest"
+    container_name: "jdt-generator"
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app
+    command: "bun run bot:jdt"
