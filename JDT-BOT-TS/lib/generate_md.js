@@ -1,5 +1,6 @@
 export function generateMD(filterJDT) {
-let FinalBody = `
+
+  let FinalBody = `
 # Journal de travail \n
 **Semaine du ${filterJDT[0].c[0].f} au ${filterJDT[4].c[0].f}** \n
 
@@ -15,7 +16,7 @@ Temps effectué cette semaine : ${filterJDT[4].c[7].f}
 
 Heures supp effectuées cette semaine : ${filterJDT[4].c[8].f}
 
-Bilan de la semaine : ${filterJDT[4].c[11].f}
+Bilan de la semaine : ${filterJDT[4].c[11].v}
 
 Je vous souhaite un excellent week-end.
 
@@ -54,7 +55,7 @@ function generateDayContent(day){
   const problemes = probleme ? probleme.v : "-"
 
   const dayMD = `
-  ### ${date_jour} \n
+### ${date_jour} \n
 
 | Début de journée | Début de la pause | Fin de la pause | Fin de journée | Heures sup | Heure de la journée |
 |----------|----------|----------|----------|----------|----------|

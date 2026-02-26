@@ -6,7 +6,6 @@ export function filterJDT(jdtJSON) {
     month: '2-digit',
     year: '2-digit'
   });
-
   let Last_week = [];
 
   const rows = jdtJSON.table.rows
@@ -20,7 +19,6 @@ export function filterJDT(jdtJSON) {
         Last_week = rows.slice(i - 4, i+ 1)
       }
     }
-
   }
   return Last_week;
 }
