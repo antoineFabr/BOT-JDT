@@ -18,7 +18,7 @@ bot.action('yes', async ctx => {
   await sendMail(process.env.MAIL_TO, process.env.MAIL_SUBJECT, process.env.MAIL_CC, html);
   console.log("Envoi du mail a été fait ✅");
 
-  bot.telegram.sendMessage(process.env.CHAT_ID, `Le mail a bien été envoyé à ${process.env.MAIL_TO}`);
+  bot.telegram.sendMessage(ctx.chat.id, `Le mail a bien été envoyé à ${process.env.MAIL_TO}`);
 })
 
 bot.action('no', async ctx => {
@@ -60,6 +60,7 @@ async function job_bot(ChatId) {
 bot.start((ctx) => {
   // il faut lancer un cron tous les vendredis a 18h30
   // 30 18 * * 5 pour vendredi 18h30
+  console.log("Lancement du CRON ⚙️")
   cron.schedule('30 18 * * 5', () => {
     console.log("Lancement du job ⚙️")
     job_bot(ctx.chat.id)

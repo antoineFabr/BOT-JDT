@@ -32,15 +32,15 @@ return FinalBody;
 
 function generateDayContent(day){
   const jour = day.c;
-  const date_jour = jour[0].f ? jour[0].f : "Date inconnue"
-  const debut = jour[1].f ? jour[1].f : "-"
-  const pause_deb = jour[2].f ? jour[2].f : "-"
-  const pause_fin = jour[3].f ? jour[3].f : "-"
-  const fin = jour[4].f ? jour[4].f : "-"
-  const h_sup = jour[5].f ? jour[5].f : "-"
-  const h_journée = jour[6].f ? jour[6].f : "-"
+  const date_jour = jour[0]?.f ? jour[0].f : "Date inconnue"
+  const debut = jour[1]?.f ? jour[1].f : "-"
+  const pause_deb = jour[2]?.f ? jour[2].f : "-"
+  const pause_fin = jour[3]?.f ? jour[3].f : "-"
+  const fin = jour[4]?.f ? jour[4].f : "-"
+  const h_sup = jour[5]?.f ? jour[5].f : "-"
+  const h_journée = jour[6]?.f ? jour[6].f : "-"
 
-  const blocTache = jour[9].v;
+  const blocTache = jour[9]?.v;
 
   const taches = blocTache.split(",");
 
