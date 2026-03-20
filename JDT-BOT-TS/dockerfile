@@ -1,0 +1,8 @@
+FROM oven/bun:latest
+RUN apt-get update && apt-get install -y tzdata
+ENV TZ="Europe/Zurich"
+WORKDIR /home/node/app
+COPY package.json bun.lockb* ./
+RUN bun install
+COPY . .
+CMD ["bun", "run", "bot:jdt"]
