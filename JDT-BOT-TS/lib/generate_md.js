@@ -7,59 +7,63 @@ export function generateMD(filterJDT) {
 Bonjour, \n \n
 Voici le récapitulatif de mes heures et activités pour cette semaine. \n
 `
-for (const day of filterJDT) {
-  FinalBody += generateDayContent(day);
-}
+  for (const day of filterJDT) {
+    FinalBody += generateDayContent(day);
+  }
+  FinalBody += `
+Temps effectué cette semaine : ${filterJDT[4].c[7].f} \n
+Heures supp effectuées cette semaine : ${filterJDT[2].c[7].f} \n
+Heures supp total : ${filterJDT[3].c[7].f} \n
 
-FinalBody += `
-Temps effectué cette semaine : ${filterJDT[4].c[7].f}
-
-Heures supp effectuées cette semaine : ${filterJDT[4].c[8].f}
-
-Bilan de la semaine : ${filterJDT[4].c[11].v}
+Bilan de la semaine : ${filterJDT[4].c[10].v} \n
 
 Je vous souhaite un excellent week-end.
 
 Cordialement,
 
-**Antoine Fabre**
-
-ps: Ce mail est généré automatiquement.
+**Jérémy Würsch**
 `
 
-return FinalBody;
+  return FinalBody;
 }
 
-function generateDayContent(day){
+function generateDayContent(day) {
   const jour = day.c;
   const date_jour = jour[0]?.f ? jour[0].f : "Date inconnue"
-  const debut = jour[1]?.f ? jour[1].f : "-"
-  const pause_deb = jour[2]?.f ? jour[2].f : "-"
-  const pause_fin = jour[3]?.f ? jour[3].f : "-"
-  const fin = jour[4]?.f ? jour[4].f : "-"
-  const h_sup = jour[5]?.f ? jour[5].f : "-"
+  const debut = jour[1]?.v ? jour[1].v : "-"
+  const pause_deb = jour[2]?.v ? jour[2].v : "-"
+  const pause_fin = jour[3]?.v ? jour[3].v : "-"
+  const fin = jour[4]?.v ? jour[4].v : "-"
+  const h_dehors = jour[5]?.v ? jour[5].v : "-"
   const h_journée = jour[6]?.f ? jour[6].f : "-"
 
-  const blocTache = jour[9]?.v;
+  const blocTache = jour[8]?.v ? jour[8]?.v : "-";
 
   const taches = blocTache.split(",");
 
   let items = [];
 
-  for(const t of taches) {
+  for (const t of taches) {
     items.push(`- ${t} \n`)
   }
 
   const tachesMD = items.join("\n")
-  const probleme = jour[10];
+  const probleme = jour[9];
   const problemes = probleme ? probleme.v : "-"
-
-  const dayMD = `
+  let dayMD = "";
+  if (jour[1]?.v.toLowerCase() === "cours" || jour[1]?.v.toLowerCase() === "cie") {
+    dayMD = `
+### ${date_jour} \n
+En ${jour[1]?.v.toLowerCase()}
+---
+  `
+  } else {
+    dayMD = `
 ### ${date_jour} \n
 
-| Début de journée | Début de la pause | Fin de la pause | Fin de journée | Heures sup | Heure de la journée |
+| Début de journée | Début de la pause | Fin de la pause | Fin de journée | Heures en dehors | Heure de la journée |
 |----------|----------|----------|----------|----------|----------|
-| ${debut} | ${pause_deb} | ${pause_fin} | ${fin} | ${h_sup} | ${h_journée} |
+| ${debut} | ${pause_deb} | ${pause_fin} | ${fin} | ${h_dehors} | ${h_journée} |
 
 **Tâches effectuées :**
 
@@ -74,5 +78,6 @@ ${problemes}
 ---
 
   `
-return dayMD;
+  }
+  return dayMD;
 }
