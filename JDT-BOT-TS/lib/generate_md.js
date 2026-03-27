@@ -7,14 +7,16 @@ export function generateMD(filterJDT) {
 Bonjour, \n \n
 Voici le récapitulatif de mes heures et activités pour cette semaine. \n
 `
-for (const day of filterJDT) {
+for (const day of filterJDT.slice(0, 5)) {
   FinalBody += generateDayContent(day);
 }
 
 FinalBody += `
 Temps effectué cette semaine : ${filterJDT[4].c[7].f}
 
-Heures supp effectuées cette semaine : ${filterJDT[4].c[8].f}
+Heures supp effectuées cette semaine : ${filterJDT[5].c[8].f}
+
+Heures supp au total : ${filterJDT[4].c[8].f}
 
 Bilan de la semaine : ${filterJDT[4].c[11].v}
 

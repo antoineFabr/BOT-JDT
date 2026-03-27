@@ -16,7 +16,7 @@ export function filterJDT(jdtJSON) {
 
       if(cellValue.includes(today)) {
 
-        Last_week = rows.slice(i - 4, i+ 1)
+        Last_week = rows.slice(i - 4, i+ 2)
       }
     }
   }
