@@ -42,7 +42,7 @@ function generateDayContent(day){
   const h_sup = jour[5]?.f ? jour[5].f : "-"
   const h_journée = jour[6]?.f ? jour[6].f : "-"
 
-  const blocTache = jour[9]?.v;
+  const blocTache = jour[9]?.v ? jour[9].v : "Aucune tầche pour ce jour"
 
   const taches = blocTache.split(",");
 
