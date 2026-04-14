@@ -56,6 +56,15 @@ async function job_bot(ChatId) {
   }
 }
 
+bot.command('jdt', (ctx) => {
+  if (ctx.chat.id == process.env.TELEGRAM_USER_ID) {
+    ctx.reply("Génération du rapport en cours, un instant...")
+    job_bot(ctx.chat.id)
+  } else {
+    console.log("User non identifié")
+    ctx.reply("Vous n'êtes pas autorisé à faire cette action")
+  }
+})
 
 bot.start((ctx) => {
   // il faut lancer un cron tous les vendredis a 18h30
